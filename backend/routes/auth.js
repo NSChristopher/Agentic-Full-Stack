@@ -1,10 +1,9 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { PrismaClient } = require('@prisma/client');
+const db = require('../db');
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 
@@ -31,7 +30,7 @@ router.post('/register', async (req, res) => {
     const { email, username, password } = req.body;
 
     // Check if user already exists
-    const existingUser = await prisma.user.findFirst({
+    const existingUser = db.user.findFirst({
       where: {
         OR: [
           { email },
@@ -48,12 +47,10 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user
-    const user = await prisma.user.create({
-      data: {
-        email,
-        username,
-        password: hashedPassword
-      }
+    const user = db.user.create({
+      email,
+      username,
+      password: hashedPassword
     });
 
     // Generate JWT token
@@ -91,7 +88,7 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     // Find user
-    const user = await prisma.user.findUnique({
+    const user = db.user.findUnique({
       where: { email }
     });
 
@@ -137,21 +134,22 @@ router.post('/login', async (req, res) => {
 // Get current user
 router.get('/me', authenticateToken, async (req, res) => {
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: req.user.userId },
-      select: {
-        id: true,
-        email: true,
-        username: true,
-        createdAt: true
-      }
+    const user = db.user.findUnique({
+      where: { id: req.user.userId }
     });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    res.json({ user });
+    res.json({ 
+      user: {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        createdAt: user.createdAt
+      }
+    });
   } catch (error) {
     console.error('Get user error:', error);
     res.status(500).json({ error: 'Internal server error' });

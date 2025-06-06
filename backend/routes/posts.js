@@ -1,14 +1,13 @@
 const express = require('express');
-const { PrismaClient } = require('@prisma/client');
+const db = require('../db');
 const { authenticateToken } = require('./auth');
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
 // Get all posts
 router.get('/', async (req, res) => {
   try {
-    const posts = await prisma.post.findMany({
+    const posts = db.post.findMany({
       include: {
         author: {
           select: {
@@ -34,7 +33,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const post = await prisma.post.findUnique({
+    const post = db.post.findUnique({
       where: { id: parseInt(id) },
       include: {
         author: {
@@ -67,7 +66,7 @@ router.post('/', authenticateToken, async (req, res) => {
       return res.status(400).json({ error: 'Title is required' });
     }
 
-    const post = await prisma.post.create({
+    const post = db.post.create({
       data: {
         title,
         content,
@@ -99,7 +98,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
     const { title, content, published } = req.body;
 
     // Check if post exists and user is the author
-    const existingPost = await prisma.post.findUnique({
+    const existingPost = db.post.findUnique({
       where: { id: parseInt(id) }
     });
 
@@ -111,7 +110,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
       return res.status(403).json({ error: 'You can only edit your own posts' });
     }
 
-    const updatedPost = await prisma.post.update({
+    const updatedPost = db.post.update({
       where: { id: parseInt(id) },
       data: {
         ...(title && { title }),
@@ -142,7 +141,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
     const { id } = req.params;
 
     // Check if post exists and user is the author
-    const existingPost = await prisma.post.findUnique({
+    const existingPost = db.post.findUnique({
       where: { id: parseInt(id) }
     });
 
@@ -154,7 +153,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
       return res.status(403).json({ error: 'You can only delete your own posts' });
     }
 
-    await prisma.post.delete({
+    db.post.delete({
       where: { id: parseInt(id) }
     });
 

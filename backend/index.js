@@ -1,14 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const { PrismaClient } = require('@prisma/client');
+const db = require('./db');
 
 // Import routes
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/posts');
 
 const app = express();
-const prisma = new PrismaClient();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
@@ -41,7 +40,7 @@ app.listen(PORT, () => {
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
-  await prisma.$disconnect();
+  db.$disconnect();
   process.exit(0);
 });
 

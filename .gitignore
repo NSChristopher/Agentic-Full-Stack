@@ -157,3 +157,6 @@ prisma/migrations/dev.db*
 dist
 dist-ssr
 *.local
+
+# Test files
+backend/test-api.js

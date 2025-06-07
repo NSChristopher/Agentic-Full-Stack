@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, CreditCard } from 'lucide-react';
-import { toast } from 'sonner';
-import api from '@/lib/api';
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowLeft, CreditCard } from "lucide-react";
+import { toast } from "sonner";
+import api from "@/lib/api";
 
 interface CartItem {
   id: number;
@@ -21,10 +27,10 @@ const Checkout = () => {
   const { cart, total, delivery } = location.state || {};
   const [loading, setLoading] = useState(false);
   const [paymentForm, setPaymentForm] = useState({
-    cardNumber: '',
-    expiryDate: '',
-    cvv: '',
-    cardholderName: '',
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
+    cardholderName: "",
   });
 
   // Redirect if no cart data
@@ -32,8 +38,12 @@ const Checkout = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">No Order Found</h2>
-          <p className="text-gray-600 mb-8">Please add items to your cart first.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            No Order Found
+          </h2>
+          <p className="text-gray-600 mb-8">
+            Please add items to your cart first.
+          </p>
           <Link to="/">
             <Button>Back to Home</Button>
           </Link>
@@ -48,18 +58,23 @@ const Checkout = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setPaymentForm(prev => ({
+    setPaymentForm((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation
-    if (!paymentForm.cardNumber || !paymentForm.expiryDate || !paymentForm.cvv || !paymentForm.cardholderName) {
-      toast.error('Please fill in all payment details');
+    if (
+      !paymentForm.cardNumber ||
+      !paymentForm.expiryDate ||
+      !paymentForm.cvv ||
+      !paymentForm.cardholderName
+    ) {
+      toast.error("Please fill in all payment details");
       return;
     }
 
@@ -70,23 +85,23 @@ const Checkout = () => {
       const orderData = {
         items: cart,
         total,
-        delivery
+        delivery,
       };
 
-      const response = await api.post('/orders', orderData);
-      
-      toast.success('Order placed successfully!');
-      navigate('/confirmation', { 
-        state: { 
+      const response = await api.post("/orders", orderData);
+
+      toast.success("Order placed successfully!");
+      navigate("/confirmation", {
+        state: {
           order: response.data,
           cart,
           total,
-          delivery
-        } 
+          delivery,
+        },
       });
     } catch (error) {
-      toast.error('Failed to place order. Please try again.');
-      console.error('Order creation error:', error);
+      toast.error("Failed to place order. Please try again.");
+      console.error("Order creation error:", error);
     } finally {
       setLoading(false);
     }
@@ -105,9 +120,7 @@ const Checkout = () => {
                   Back to Menu
                 </Button>
               </Link>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Checkout
-              </h1>
+              <h1 className="text-2xl font-bold text-gray-900">Checkout</h1>
             </div>
           </div>
         </div>
@@ -121,16 +134,21 @@ const Checkout = () => {
             <CardHeader>
               <CardTitle>Order Summary</CardTitle>
               <CardDescription>
-                {delivery ? 'Delivery' : 'Pickup'} Order
+                {delivery ? "Delivery" : "Pickup"} Order
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {cart.map((item: CartItem) => (
-                  <div key={item.id} className="flex justify-between items-center">
+                  <div
+                    key={item.id}
+                    className="flex justify-between items-center"
+                  >
                     <div>
                       <span className="font-medium">{item.name}</span>
-                      <span className="text-gray-500 ml-2">x {item.quantity}</span>
+                      <span className="text-gray-500 ml-2">
+                        x {item.quantity}
+                      </span>
                     </div>
                     <span>{formatPrice(item.price * item.quantity)}</span>
                   </div>
@@ -208,12 +226,10 @@ const Checkout = () => {
                     />
                   </div>
                 </div>
-                <Button 
-                  type="submit" 
-                  className="w-full" 
-                  disabled={loading}
-                >
-                  {loading ? 'Processing...' : `Place Order - ${formatPrice(total)}`}
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading
+                    ? "Processing..."
+                    : `Place Order - ${formatPrice(total)}`}
                 </Button>
               </form>
             </CardContent>

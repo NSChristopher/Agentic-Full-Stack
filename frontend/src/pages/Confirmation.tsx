@@ -1,7 +1,13 @@
-import { Link, useLocation } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, Home, Clock } from 'lucide-react';
+import { Link, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { CheckCircle, Home, Clock } from "lucide-react";
 
 interface CartItem {
   id: number;
@@ -19,7 +25,9 @@ const Confirmation = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">No Order Found</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            No Order Found
+          </h2>
           <p className="text-gray-600 mb-8">Please place an order first.</p>
           <Link to="/">
             <Button>Back to Home</Button>
@@ -37,7 +45,7 @@ const Confirmation = () => {
     return new Date(dateString).toLocaleString();
   };
 
-  const estimatedTime = delivery ? '30-45 minutes' : '15-20 minutes';
+  const estimatedTime = delivery ? "30-45 minutes" : "15-20 minutes";
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -83,7 +91,7 @@ const Confirmation = () => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="font-medium">Order Type:</span>
-                  <span>{delivery ? 'Delivery' : 'Pickup'}</span>
+                  <span>{delivery ? "Delivery" : "Pickup"}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="font-medium">Estimated Time:</span>
@@ -97,7 +105,9 @@ const Confirmation = () => {
                   <div className="space-y-2">
                     {cart.map((item: CartItem) => (
                       <div key={item.id} className="flex justify-between">
-                        <span>{item.name} x {item.quantity}</span>
+                        <span>
+                          {item.name} x {item.quantity}
+                        </span>
                         <span>{formatPrice(item.price * item.quantity)}</span>
                       </div>
                     ))}
@@ -124,29 +134,41 @@ const Confirmation = () => {
                   <>
                     <div className="flex items-start">
                       <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                        <span className="text-blue-600 font-bold text-sm">1</span>
+                        <span className="text-blue-600 font-bold text-sm">
+                          1
+                        </span>
                       </div>
                       <div>
                         <h4 className="font-medium">Order Preparation</h4>
-                        <p className="text-gray-600 text-sm">We're preparing your order now</p>
+                        <p className="text-gray-600 text-sm">
+                          We're preparing your order now
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start">
                       <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                        <span className="text-blue-600 font-bold text-sm">2</span>
+                        <span className="text-blue-600 font-bold text-sm">
+                          2
+                        </span>
                       </div>
                       <div>
                         <h4 className="font-medium">Out for Delivery</h4>
-                        <p className="text-gray-600 text-sm">Your order will be on its way soon</p>
+                        <p className="text-gray-600 text-sm">
+                          Your order will be on its way soon
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start">
                       <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                        <span className="text-blue-600 font-bold text-sm">3</span>
+                        <span className="text-blue-600 font-bold text-sm">
+                          3
+                        </span>
                       </div>
                       <div>
                         <h4 className="font-medium">Delivered</h4>
-                        <p className="text-gray-600 text-sm">Enjoy your meal!</p>
+                        <p className="text-gray-600 text-sm">
+                          Enjoy your meal!
+                        </p>
                       </div>
                     </div>
                   </>
@@ -154,44 +176,55 @@ const Confirmation = () => {
                   <>
                     <div className="flex items-start">
                       <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                        <span className="text-blue-600 font-bold text-sm">1</span>
+                        <span className="text-blue-600 font-bold text-sm">
+                          1
+                        </span>
                       </div>
                       <div>
                         <h4 className="font-medium">Order Preparation</h4>
-                        <p className="text-gray-600 text-sm">We're preparing your order now</p>
+                        <p className="text-gray-600 text-sm">
+                          We're preparing your order now
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start">
                       <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                        <span className="text-blue-600 font-bold text-sm">2</span>
+                        <span className="text-blue-600 font-bold text-sm">
+                          2
+                        </span>
                       </div>
                       <div>
                         <h4 className="font-medium">Ready for Pickup</h4>
-                        <p className="text-gray-600 text-sm">We'll notify you when it's ready</p>
+                        <p className="text-gray-600 text-sm">
+                          We'll notify you when it's ready
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start">
                       <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                        <span className="text-blue-600 font-bold text-sm">3</span>
+                        <span className="text-blue-600 font-bold text-sm">
+                          3
+                        </span>
                       </div>
                       <div>
                         <h4 className="font-medium">Pickup</h4>
-                        <p className="text-gray-600 text-sm">Come to our location to collect your order</p>
+                        <p className="text-gray-600 text-sm">
+                          Come to our location to collect your order
+                        </p>
                       </div>
                     </div>
                   </>
                 )}
               </div>
-              
+
               <div className="mt-6 pt-6 border-t">
                 <h4 className="font-medium mb-2">Questions?</h4>
                 <p className="text-gray-600 text-sm mb-4">
-                  Contact us at (555) 123-4567 if you have any questions about your order.
+                  Contact us at (555) 123-4567 if you have any questions about
+                  your order.
                 </p>
                 <Link to="/">
-                  <Button className="w-full">
-                    Place Another Order
-                  </Button>
+                  <Button className="w-full">Place Another Order</Button>
                 </Link>
               </div>
             </CardContent>

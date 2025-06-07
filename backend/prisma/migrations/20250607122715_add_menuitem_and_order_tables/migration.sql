@@ -1,0 +1,15 @@
+-- CreateTable
+CREATE TABLE "MenuItem" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "price" INTEGER NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Order" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "items" TEXT NOT NULL,
+    "total" INTEGER NOT NULL,
+    "delivery" BOOLEAN NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

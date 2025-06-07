@@ -1,10 +1,16 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Plus, Minus, ShoppingCart } from 'lucide-react';
-import { toast } from 'sonner';
-import api from '@/lib/api';
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowLeft, Plus, Minus, ShoppingCart } from "lucide-react";
+import { toast } from "sonner";
+import api from "@/lib/api";
 
 interface MenuItem {
   id: number;
@@ -30,21 +36,21 @@ const Menu = () => {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await api.get('/menu');
+      const response = await api.get("/menu");
       setMenuItems(response.data);
     } catch (error) {
-      toast.error('Failed to load menu items');
-      console.error('Menu fetch error:', error);
+      toast.error("Failed to load menu items");
+      console.error("Menu fetch error:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const addToCart = (item: MenuItem) => {
-    setCart(prevCart => {
-      const existingItem = prevCart.find(cartItem => cartItem.id === item.id);
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
       if (existingItem) {
-        return prevCart.map(cartItem =>
+        return prevCart.map((cartItem) =>
           cartItem.id === item.id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
@@ -57,27 +63,27 @@ const Menu = () => {
   };
 
   const removeFromCart = (itemId: number) => {
-    setCart(prevCart => {
-      const existingItem = prevCart.find(cartItem => cartItem.id === itemId);
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((cartItem) => cartItem.id === itemId);
       if (existingItem && existingItem.quantity > 1) {
-        return prevCart.map(cartItem =>
+        return prevCart.map((cartItem) =>
           cartItem.id === itemId
             ? { ...cartItem, quantity: cartItem.quantity - 1 }
             : cartItem
         );
       } else {
-        return prevCart.filter(cartItem => cartItem.id !== itemId);
+        return prevCart.filter((cartItem) => cartItem.id !== itemId);
       }
     });
   };
 
   const getCartItemQuantity = (itemId: number) => {
-    const item = cart.find(cartItem => cartItem.id === itemId);
+    const item = cart.find((cartItem) => cartItem.id === itemId);
     return item ? item.quantity : 0;
   };
 
   const getCartTotal = () => {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   const formatPrice = (priceInCents: number) => {
@@ -86,15 +92,15 @@ const Menu = () => {
 
   const proceedToCheckout = () => {
     if (cart.length === 0) {
-      toast.error('Please add items to your cart first');
+      toast.error("Please add items to your cart first");
       return;
     }
-    navigate('/checkout', { 
-      state: { 
-        cart, 
-        total: getCartTotal(), 
-        delivery 
-      } 
+    navigate("/checkout", {
+      state: {
+        cart,
+        total: getCartTotal(),
+        delivery,
+      },
     });
   };
 
@@ -123,7 +129,7 @@ const Menu = () => {
                 </Button>
               </Link>
               <h1 className="text-2xl font-bold text-gray-900">
-                Menu - {delivery ? 'Delivery' : 'Pickup'}
+                Menu - {delivery ? "Delivery" : "Pickup"}
               </h1>
             </div>
             <div className="flex items-center space-x-4">
@@ -172,9 +178,7 @@ const Menu = () => {
                       <Plus className="h-4 w-4" />
                     </Button>
                   </div>
-                  <Button onClick={() => addToCart(item)}>
-                    Add to Cart
-                  </Button>
+                  <Button onClick={() => addToCart(item)}>Add to Cart</Button>
                 </div>
               </CardContent>
             </Card>
@@ -190,8 +194,13 @@ const Menu = () => {
               <CardContent>
                 <div className="space-y-2">
                   {cart.map((item) => (
-                    <div key={item.id} className="flex justify-between items-center">
-                      <span>{item.name} x {item.quantity}</span>
+                    <div
+                      key={item.id}
+                      className="flex justify-between items-center"
+                    >
+                      <span>
+                        {item.name} x {item.quantity}
+                      </span>
                       <span>{formatPrice(item.price * item.quantity)}</span>
                     </div>
                   ))}

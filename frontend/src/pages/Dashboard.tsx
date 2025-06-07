@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAuth } from '@/hooks/useAuth';
-import { usePosts } from '@/hooks/usePosts';
-import { Post } from '@/types';
-import { Plus, Edit, Trash2, LogOut, User } from 'lucide-react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useAuth } from "@/hooks/useAuth";
+import { usePosts } from "@/hooks/usePosts";
+import { Post } from "@/types";
+import { Plus, Edit, Trash2, LogOut, User } from "lucide-react";
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -15,8 +21,8 @@ const Dashboard = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [formData, setFormData] = useState({
-    title: '',
-    content: '',
+    title: "",
+    content: "",
     published: false,
   });
   const navigate = useNavigate();
@@ -24,7 +30,7 @@ const Dashboard = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/');
+      navigate("/");
     } catch (error) {
       // Error handled in auth hook
     }
@@ -42,7 +48,7 @@ const Dashboard = () => {
         await createPost(formData);
         setShowCreateForm(false);
       }
-      setFormData({ title: '', content: '', published: false });
+      setFormData({ title: "", content: "", published: false });
     } catch (error) {
       // Error handled in hooks
     }
@@ -52,7 +58,7 @@ const Dashboard = () => {
     setEditingPost(post);
     setFormData({
       title: post.title,
-      content: post.content || '',
+      content: post.content || "",
       published: post.published,
     });
     setShowCreateForm(true);
@@ -61,10 +67,10 @@ const Dashboard = () => {
   const handleCancelEdit = () => {
     setEditingPost(null);
     setShowCreateForm(false);
-    setFormData({ title: '', content: '', published: false });
+    setFormData({ title: "", content: "", published: false });
   };
 
-  const userPosts = posts.filter(post => post.authorId === user?.id);
+  const userPosts = posts.filter((post) => post.authorId === user?.id);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -100,7 +106,9 @@ const Dashboard = () => {
           ) : (
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle>{editingPost ? 'Edit Post' : 'Create New Post'}</CardTitle>
+                <CardTitle>
+                  {editingPost ? "Edit Post" : "Create New Post"}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -109,7 +117,9 @@ const Dashboard = () => {
                     <Input
                       id="title"
                       value={formData.title}
-                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, title: e.target.value })
+                      }
                       required
                     />
                   </div>
@@ -119,7 +129,9 @@ const Dashboard = () => {
                       id="content"
                       className="w-full min-h-[100px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       value={formData.content}
-                      onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, content: e.target.value })
+                      }
                     />
                   </div>
                   <div className="flex items-center space-x-2">
@@ -127,15 +139,24 @@ const Dashboard = () => {
                       type="checkbox"
                       id="published"
                       checked={formData.published}
-                      onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          published: e.target.checked,
+                        })
+                      }
                     />
                     <Label htmlFor="published">Published</Label>
                   </div>
                   <div className="flex space-x-2">
                     <Button type="submit">
-                      {editingPost ? 'Update Post' : 'Create Post'}
+                      {editingPost ? "Update Post" : "Create Post"}
                     </Button>
-                    <Button type="button" variant="outline" onClick={handleCancelEdit}>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleCancelEdit}
+                    >
                       Cancel
                     </Button>
                   </div>
@@ -149,7 +170,9 @@ const Dashboard = () => {
         <div className="grid gap-6">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold text-gray-900">Your Posts</h2>
-            <span className="text-sm text-gray-500">{userPosts.length} posts</span>
+            <span className="text-sm text-gray-500">
+              {userPosts.length} posts
+            </span>
           </div>
 
           {loading ? (
@@ -159,7 +182,9 @@ const Dashboard = () => {
           ) : userPosts.length === 0 ? (
             <Card>
               <CardContent className="text-center py-8">
-                <p className="text-gray-500 mb-4">You haven't created any posts yet.</p>
+                <p className="text-gray-500 mb-4">
+                  You haven't created any posts yet.
+                </p>
                 <Button onClick={() => setShowCreateForm(true)}>
                   <Plus className="h-4 w-4 mr-2" />
                   Create Your First Post
@@ -175,17 +200,21 @@ const Dashboard = () => {
                       <div>
                         <CardTitle className="text-lg">{post.title}</CardTitle>
                         <CardDescription>
-                          {post.published ? 'Published' : 'Draft'} • Created on{' '}
+                          {post.published ? "Published" : "Draft"} • Created on{" "}
                           {new Date(post.createdAt).toLocaleDateString()}
                         </CardDescription>
                       </div>
                       <div className="flex space-x-2">
-                        <Button size="sm" variant="outline" onClick={() => handleEdit(post)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleEdit(post)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          size="sm" 
-                          variant="destructive" 
+                        <Button
+                          size="sm"
+                          variant="destructive"
                           onClick={() => deletePost(post.id)}
                         >
                           <Trash2 className="h-4 w-4" />
@@ -195,7 +224,9 @@ const Dashboard = () => {
                   </CardHeader>
                   {post.content && (
                     <CardContent>
-                      <p className="text-gray-600 whitespace-pre-wrap">{post.content}</p>
+                      <p className="text-gray-600 whitespace-pre-wrap">
+                        {post.content}
+                      </p>
                     </CardContent>
                   )}
                 </Card>
@@ -206,7 +237,9 @@ const Dashboard = () => {
 
         {/* All Posts Section */}
         <div className="mt-12">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">All Posts</h2>
+          <h2 className="text-xl font-semibold text-gray-900 mb-6">
+            All Posts
+          </h2>
           <div className="space-y-4">
             {posts.map((post) => (
               <Card key={post.id}>
@@ -215,14 +248,17 @@ const Dashboard = () => {
                     <div>
                       <CardTitle className="text-lg">{post.title}</CardTitle>
                       <CardDescription>
-                        By {post.author.username} • {new Date(post.createdAt).toLocaleDateString()}
+                        By {post.author.username} •{" "}
+                        {new Date(post.createdAt).toLocaleDateString()}
                       </CardDescription>
                     </div>
                   </div>
                 </CardHeader>
                 {post.content && (
                   <CardContent>
-                    <p className="text-gray-600 whitespace-pre-wrap">{post.content}</p>
+                    <p className="text-gray-600 whitespace-pre-wrap">
+                      {post.content}
+                    </p>
                   </CardContent>
                 )}
               </Card>

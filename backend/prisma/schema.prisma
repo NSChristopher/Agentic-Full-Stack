@@ -80,3 +80,17 @@ model WorkoutSet {
   weight         Float
   completedAt    DateTime @default(now())
 }
+
+model MenuItem {
+  id     Int    @id @default(autoincrement())
+  name   String
+  price  Int // store cents for simplicity
+}
+
+model Order {
+  id         Int      @id @default(autoincrement())
+  items      String   // store as JSON string for MVP simplicity
+  total      Int
+  delivery   Boolean
+  createdAt  DateTime @default(now())
+}

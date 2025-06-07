@@ -35,13 +35,7 @@ A complete, production-ready full-stack template featuring React 18, Express.js,
 
 ### Installation
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/NSChristopher/Full-Stack-Template.git
-   cd Full-Stack-Template
-   ```
-
-2. **Install dependencies:**
+1. **Install dependencies:**
    ```bash
    npm install
    ```

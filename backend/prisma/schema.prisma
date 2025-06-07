@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  posts     Post[]
+  workoutSessions WorkoutSession[]
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WorkoutTemplate {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?
+  exercises   WorkoutExercise[]
+  workoutSessions WorkoutSession[]
+}
+
+model Exercise {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?
+  muscleGroup String?
+  templates   WorkoutExercise[]
+  workoutSets WorkoutSet[]
+}
+
+model WorkoutExercise {
+  id               Int             @id @default(autoincrement())
+  workoutTemplate  WorkoutTemplate @relation(fields: [workoutTemplateId], references: [id])
+  workoutTemplateId Int
+  exercise         Exercise        @relation(fields: [exerciseId], references: [id])
+  exerciseId       Int
+  order            Int
+}
+
+model WorkoutSession {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  startedAt   DateTime  @default(now())
+  endedAt     DateTime?
+  template    WorkoutTemplate @relation(fields: [templateId], references: [id])
+  templateId  Int
+  sets        WorkoutSet[]
+}
+
+model WorkoutSet {
+  id              Int            @id @default(autoincrement())
+  session         WorkoutSession @relation(fields: [sessionId], references: [id])
+  sessionId       Int
+  exercise       Exercise        @relation(fields: [exerciseId], references: [id])
+  exerciseId     Int
+  setNumber      Int
+  reps           Int
+  weight         Float
+  completedAt    DateTime @default(now())
+}

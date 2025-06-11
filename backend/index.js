@@ -6,7 +6,6 @@ const db = require("./db");
 // Import routes
 const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/posts");
-const workoutRoutes = require("./routes/workouts");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,7 +23,6 @@ app.use(cookieParser());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/workouts", workoutRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {

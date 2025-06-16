@@ -4,16 +4,16 @@ A complete, production-ready full-stack template featuring React 18, Express.js,
 
 ## 📦 Tech Stack
 
-| Layer       | Technology                    | Purpose |
-|-------------|-------------------------------|---------|
-| **Frontend**    | React 18 + TypeScript + Vite | Modern React with fast development |
-| **Styling**     | Tailwind CSS + ShadCN UI     | Utility-first CSS with beautiful components |
-| **Icons & UI**  | Lucide React + Sonner        | Icons and toast notifications |
-| **Backend**     | Express.js + Node.js          | RESTful API server |
-| **Database**    | SQLite + Prisma ORM          | Type-safe database access |
-| **Auth**        | JWT + HTTP-only Cookies       | Secure authentication flow |
-| **API Client**  | Axios                         | HTTP client with interceptors |
-| **Dev Environment** | GitHub Codespaces + Devcontainer | Consistent development environment |
+| Layer               | Technology                       | Purpose                                     |
+| ------------------- | -------------------------------- | ------------------------------------------- |
+| **Frontend**        | React 18 + TypeScript + Vite     | Modern React with fast development          |
+| **Styling**         | Tailwind CSS + ShadCN UI         | Utility-first CSS with beautiful components |
+| **Icons & UI**      | Lucide React + Sonner            | Icons and toast notifications               |
+| **Backend**         | Express.js + Node.js             | RESTful API server                          |
+| **Database**        | SQLite + Prisma ORM              | Type-safe database access                   |
+| **Auth**            | JWT + HTTP-only Cookies          | Secure authentication flow                  |
+| **API Client**      | Axios                            | HTTP client with interceptors               |
+| **Dev Environment** | GitHub Codespaces + Devcontainer | Consistent development environment          |
 
 ## ✨ Features
 
@@ -30,23 +30,27 @@ A complete, production-ready full-stack template featuring React 18, Express.js,
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+ installed
 - Git installed
 
 ### Installation
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
-3. **Set up environment variables:**
+2. **Set up environment variables:**
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
 
-4. **Initialize the database:**
+3. **Initialize the database:**
+
    ```bash
    cd backend
    # The application will automatically create SQLite database tables on first run
@@ -56,14 +60,49 @@ A complete, production-ready full-stack template featuring React 18, Express.js,
    cd ..
    ```
 
-5. **Start development servers:**
+4. **Start development servers:**
+
    ```bash
    npm run dev
    ```
 
-6. **Open your browser:**
+5. **Open your browser:**
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:5000
+
+## 📚 Adding Documentation as a Submodule
+
+To add your own documentation as a submodule (recommended for multi-repo projects):
+
+1. **Add the submodule (excluding the `.devcontainer` folder):**
+
+   ```sh
+   git submodule add --depth 1 --filter=blob:none --sparse https://github.com/your-org/your-docs-repo.git external-docs
+   cd external-docs
+   git sparse-checkout set docs guidelines planning templates
+   cd ..
+   ```
+
+   > This will only include the `docs`, `guidelines`, `planning`, and `templates` folders from your docs repo, excluding `.devcontainer`.
+
+2. **Update submodules as needed:**
+
+   ```sh
+   git submodule update --remote --merge
+   ```
+
+3. **If you want to remove the submodule:**
+   ```sh
+   git submodule deinit -f external-docs
+   git rm -f external-docs
+   rm -rf .git/modules/external-docs
+   ```
+
+**Note:**
+
+- Documentation will auto update at each rebuild or restart of the codespace due to postCreate and posStart commands.
+- You can keep the `external-docs/` folder in your repo as a placeholder for documentation, even if you don't use a submodule.
+- If you use a different folder name, update the commands accordingly.
 
 ## 📁 Project Structure
 
@@ -111,12 +150,14 @@ A complete, production-ready full-stack template featuring React 18, Express.js,
 ## 🔌 API Endpoints
 
 ### Authentication (`/api/auth`)
+
 - `POST /api/auth/register` - Register new user
 - `POST /api/auth/login` - Login user
 - `GET /api/auth/me` - Get current user (protected)
 - `POST /api/auth/logout` - Logout user
 
 ### Posts (`/api/posts`)
+
 - `GET /api/posts` - Get all posts
 - `GET /api/posts/:id` - Get single post
 - `POST /api/posts` - Create post (protected)
@@ -154,6 +195,7 @@ npx prisma migrate dev # Create migration
 ### Adding New Database Models
 
 1. Update the Prisma schema:
+
    ```prisma
    // backend/prisma/schema.prisma
    model YourModel {
@@ -164,6 +206,7 @@ npx prisma migrate dev # Create migration
    ```
 
 2. Generate and apply changes:
+
    ```bash
    cd backend
    npx prisma generate
@@ -195,16 +238,19 @@ DATABASE_URL="file:./dev.db"
 ## 🚢 Deployment
 
 ### Frontend (Vercel, Netlify, etc.)
+
 1. Build the frontend: `cd frontend && npm run build`
 2. Deploy the `frontend/dist` folder
 3. Configure environment variables for API URL
 
 ### Backend (Railway, Heroku, etc.)
+
 1. Deploy the `backend` folder
 2. Set environment variables
 3. Use a production database (PostgreSQL, MySQL)
 
 ### Full Stack (Railway, Render)
+
 1. Use the root package.json for deployment
 2. Configure build and start scripts
 3. Set up environment variables
@@ -234,6 +280,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙋‍♂️ Support
 
 If you have any questions or run into issues, please:
+
 1. Check the [documentation](agent/prompts.md)
 2. Search existing issues
 3. Create a new issue with detailed information

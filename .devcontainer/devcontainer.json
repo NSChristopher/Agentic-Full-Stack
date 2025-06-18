@@ -9,7 +9,6 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "bradlc.vscode-tailwindcss",
         "ms-vscode.vscode-typescript-next",
         "esbenp.prettier-vscode",
         "Prisma.prisma",

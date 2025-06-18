@@ -53,10 +53,8 @@ A complete, production-ready full-stack template featuring React 18, Express.js,
 
    ```bash
    cd backend
-   # The application will automatically create SQLite database tables on first run
-   # Optional: If you have Prisma working, you can run:
-   # npx prisma generate
-   # npx prisma db push
+   npx prisma generate
+   npx prisma db push
    cd ..
    ```
 
@@ -79,7 +77,7 @@ To add your own documentation as a submodule (recommended for multi-repo project
    ```sh
    git submodule add --depth 1 --filter=blob:none --sparse https://github.com/your-org/your-docs-repo.git external-docs
    cd external-docs
-   git sparse-checkout set docs guidelines planning templates
+   git sparse-checkout set docs guidelines planning
    cd ..
    ```
 

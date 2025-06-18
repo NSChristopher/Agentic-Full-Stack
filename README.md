@@ -70,18 +70,18 @@ A complete, production-ready full-stack template featuring React 18, Express.js,
 
 ## 📚 Adding Documentation as a Submodule
 
-To add your own documentation as a submodule (recommended for multi-repo projects):
+add your documentation as a submodule for a single source of truth accross branches
 
-1. **Add the submodule (excluding the `.devcontainer` folder):**
+1. **Add the submodule (excluding the `.devcontainer` and `templates` folders):**
 
    ```sh
-   git submodule add --depth 1 --filter=blob:none --sparse https://github.com/your-org/your-docs-repo.git external-docs
+   git submodule add --depth 1 --filter=blob:none --sparse YOUR-DOCS-REPO-HERE external-docs
    cd external-docs
    git sparse-checkout set docs guidelines planning
    cd ..
    ```
 
-   > This will only include the `docs`, `guidelines`, `planning`, and `templates` folders from your docs repo, excluding `.devcontainer`.
+   > This will only include the `docs`, `guidelines`, and `planning` folders from your docs repo, excluding `.devcontainer` and `templates`.
 
 2. **Update submodules as needed:**
 

@@ -9,6 +9,7 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        "qwtel.sqlite-viewer",
         "ms-vscode.vscode-typescript-next",
         "esbenp.prettier-vscode",
         "Prisma.prisma",

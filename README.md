@@ -75,7 +75,7 @@ add your documentation as a submodule for a single source of truth accross branc
 1. **Add the submodule (excluding the `.devcontainer` and `templates` folders):**
 
    ```sh
-   git submodule add --depth 1 --filter=blob:none --sparse YOUR-DOCS-REPO-HERE external-docs
+   git submodule add YOUR-DOCS-REPO-HERE external-docs
    cd external-docs
    git sparse-checkout set docs guidelines planning
    cd ..

@@ -68,40 +68,6 @@ A complete, production-ready full-stack template featuring React 18, Express.js,
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:5000
 
-## 📚 Adding Documentation as a Submodule
-
-add your documentation as a submodule for a single source of truth accross branches
-
-1. **Add the submodule (excluding the `.devcontainer` and `templates` folders):**
-
-   ```sh
-   git submodule add YOUR-DOCS-REPO-HERE external-docs
-   cd external-docs
-   git sparse-checkout set docs guidelines planning
-   cd ..
-   ```
-
-   > This will only include the `docs`, `guidelines`, and `planning` folders from your docs repo, excluding `.devcontainer` and `templates`.
-
-2. **Update submodules as needed:**
-
-   ```sh
-   git submodule update --remote --merge
-   ```
-
-3. **If you want to remove the submodule:**
-   ```sh
-   git submodule deinit -f external-docs
-   git rm -f external-docs
-   rm -rf .git/modules/external-docs
-   ```
-
-**Note:**
-
-- Documentation will auto update at each rebuild or restart of the codespace due to postCreate and posStart commands.
-- You can keep the `external-docs/` folder in your repo as a placeholder for documentation, even if you don't use a submodule.
-- If you use a different folder name, update the commands accordingly.
-
 ## 📁 Project Structure
 
 ```
@@ -138,8 +104,11 @@ add your documentation as a submodule for a single source of truth accross branc
 │   ├── package.json
 │   ├── tailwind.config.js    # Tailwind configuration
 │   └── vite.config.ts        # Vite configuration
-├── agent/
-│   └── prompts.md            # AI agent instructions
+├── documentation/             # Project documentation, guidelines, planning, templates
+│   ├── planning/
+│   ├── guidelines/
+│   ├── templates/
+│   └── docs/
 ├── package.json              # Root package.json
 ├── .env.example              # Environment variables template
 └── README.md                 # This file
@@ -279,7 +248,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or run into issues, please:
 
-1. Check the [documentation](agent/prompts.md)
+1. Check the [documentation](documentation/)
 2. Search existing issues
 3. Create a new issue with detailed information
 

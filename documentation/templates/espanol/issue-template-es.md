@@ -73,57 +73,11 @@ _Si las dependencias no están listas, ¿qué stubs o datos mock se pueden usar 
 _¿Qué partes de la base de código afectará este problema?_
 
 ## Directrices para guardar documentación
-
 _*Esto debe estar presente y sin cambios en todos los issues*_
 
 ¿Dónde se debe guardar la documentación?
+- **Nuevas Funcionalidades**: Para nuevas funcionalidades, cree un archivo Markdown directamente en la carpeta `documentation/docs`. El nombre del archivo debe ser descriptivo de la funcionalidad (por ejemplo, `nombre-funcionalidad.md`).
+- **Funcionalidades Editadas**: Para ediciones, actualice el archivo Markdown correspondiente en la misma carpeta `documentation/docs`.
 
-- **Nuevas Funcionalidades**: Si se crea una nueva funcionalidad, documente la funcionalidad en un archivo Markdown y guárdelo dentro de la carpeta `documentation/docs`. El nombre del archivo debe ser descriptivo de la funcionalidad (por ejemplo, `nombre-funcionalidad.md`).
-- **Funcionalidades Editadas**: Si se edita una funcionalidad existente, localice el archivo Markdown correspondiente en la carpeta `documentation/docs` y actualícelo con los cambios.
-
-Pasos para Confirmar Cambios y Crear una Solicitud de Extracción
-
-1. **Navegar al Repositorio de Documentos de Documentación**:
-
-   - Asegúrese de estar trabajando dentro del repositorio `documentation`.
-   - cd en el repositorio anidado:
-     ```bash
-     cd documentation
-     ```
-
-2. **Agregar o Editar Documentación**:
-
-   - Para nuevas funcionalidades:
-     - Cree un nuevo archivo Markdown en la carpeta `documentation/docs`.
-     - Escriba documentación detallada sobre la funcionalidad, incluyendo su propósito, funcionalidad e instrucciones de uso.
-   - Para funcionalidades editadas:
-     - Localice el archivo Markdown existente en la carpeta `documentation/docs`.
-     - Actualice el archivo con los cambios relevantes.
-
-3. **Preparar los Cambios**:
-
-   - Ejecute el siguiente comando para preparar los cambios:
-     ```bash
-     git add docs/
-     ```
-
-4. **Confirmar los Cambios**:
-
-   - Use un mensaje de confirmación descriptivo para explicar los cambios:
-     ```bash
-     git commit -m "Agregar/Editar documentación para [nombre-funcionalidad]"
-     ```
-
-5. **Empujar los Cambios a una Nueva Rama**:
-   - Cree una nueva rama para los cambios:
-     ```bash
-     git checkout -b actualizacion-doc-funcionalidad
-     ```
-   - Empuje la rama al repositorio remoto:
-     ```bash
-     git push -u origin actualizacion-doc-funcionalidad
-     ```
-
-## Notas
-
+Notas
 - Asegúrese de que toda la documentación sea clara, concisa y siga las pautas de formato del repositorio.

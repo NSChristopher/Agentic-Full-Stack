@@ -55,55 +55,16 @@ _What other issues or features must be completed first?_
 _If dependencies are not ready, what stubs or mock data can be used to proceed? use documentaition as a contract_
 
 
-## Seperation of Concerns (Preventing Merge Conflicts!)
+## Separation of Concerns (Preventing Merge Conflicts!)
 _What parts of the codebase will this issue affect?_
 
 
-## Guidlines for saving Documentation
-_*This should be pressent and unchanged in all issues*_
+## Guidelines for saving Documentation
+_*This should be present and unchanged in all issues*_
 
 Where Should Documentation Be Saved?
-- **New Features**: If a new feature is created, document the feature in a Markdown file and save it inside the `documentation/docs` folder. The file name should be descriptive of the feature (e.g., `feature-name.md`).
-- **Edited Features**: If an existing feature is edited, locate the corresponding Markdown file in the `documentation/docs` folder and update it with the changes.
+- **New Features**: For new features, create a Markdown file directly in the `documentation/docs` folder. The file name should be descriptive of the feature (e.g., `feature-name.md`).
+- **Edited Features**: For edits, update the corresponding Markdown file in the same `documentation/docs` folder.
 
-Steps for Committing Changes and Creating a Pull Request
-
-1. **Navigate to the External Docs Repository**:
-   - Ensure you are working within the `documentation` repository.
-   - cd into the nested repository:
-     ```bash
-     cd documentation
-     ```
-
-2. **Add or Edit Documentation**:
-   - For new features:
-     - Create a new Markdown file in the `documentation/docs` folder.
-     - Write detailed documentation about the feature, including its purpose, functionality, and usage instructions.
-   - For edited features:
-     - Locate the existing Markdown file in the `documentation/docs` folder.
-     - Update the file with the relevant changes.
-
-3. **Stage the Changes**:
-   - Run the following command to stage the changes:
-     ```bash
-     git add docs/
-     ```
-
-4. **Commit the Changes**:
-   - Use a descriptive commit message to explain the changes:
-     ```bash
-     git commit -m "Add/Edit documentation for [feature-name]"
-     ```
-
-4. **Push the Changes to a New Branch**:
-   - Create a new branch for the changes:
-     ```bash
-     git checkout -b feature-doc-update
-     ```
-   - Push the branch to the remote repository:
-     ```bash
-     git push -u origin feature-doc-update
-     ```
-
-## Notes
+Notes
 - Ensure all documentation is clear, concise, and follows the formatting guidelines of the repository.
